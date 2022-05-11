@@ -15,21 +15,31 @@
         @isset($task)
             @method('PUT')
         @endisset
-        <div class="col-md-6 my-2">
+        <div class="col-md-4 my-2">
             <label class="mb-1"> Title </label>
             <input type="text" name="title" class="form-control" value="{{$task->title ?? null}}">
         </div>
-        <div class="col-md-6 my-2">
+        <div class="col-md-4 my-2">
             <label class="mb-1"> Assign To </label>
             <select class="form-control" name="user_id">
                 <option value=""> -- Please Choose -- </option>
                 @foreach ($users as $user)
-                    <option value="{{$user->id}}" @if($task->user_id == $user->id) selected @endif>
+                    <option value="{{$user->id}}" @if(isset($task) && $task->user_id == $user->id) selected @endif>
                         {{$user->name}} ({{$user->email}})
                     </option>
                 @endforeach
             </select>
-            {{-- <input type="number" name="user_id" class="form-control" value="{{$task->user_id ?? null}}"> --}}
+        </div>
+        <div class="col-md-4 my-2">
+            <label class="mb-1"> Choose Category </label>
+            <select class="form-control" name="cat_id">
+                <option value=""> -- Please Choose -- </option>
+                @foreach ($cats as $cat)
+                    <option value="{{$cat->id}}" @if(isset($task) && $task->cat_id == $cat->id) selected @endif>
+                        {{$cat->name}}
+                    </option>
+                @endforeach
+            </select>
         </div>
         <div class="col-md-12 my-2">
             <label class="mb-1"> Description </label>

@@ -14,4 +14,13 @@ Route::get('/', function () {
 // Route::put('/tasks/{task}', 'TasksController@update')->name('tasks.update');
 // Route::delete('/tasks/{task}', 'TasksController@destroy')->name('tasks.destroy');
 
-Route::resource('tasks', 'TasksController')->except(['show']);
+Route::resource('tasks', 'TaskController')->except(['show']);
+Route::resource('cats', 'CatController')->only(['store'])->middleware('auth');
+
+
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';
